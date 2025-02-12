@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.springframework.boot' version '2.7.6'
+}
+
+group = 'com.looqbox'
+version = '1.0.0-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_17 
+targetCompatibility = JavaVersion.VERSION_17 
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def springBoot = "org.springframework.boot:spring-boot"
+    def springVersion = "2.7.6"
+
+    implementation "${springBoot}-starter-web:${springVersion}"
+    implementation "${springBoot}-starter-webflux:${springVersion}"
+
+    developmentOnly "${springBoot}-devtools:${springVersion}"
+    testImplementation "${springBoot}-starter-test:${springVersion}"
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.looqbox.MainApplication'
+        )
+    }
+}
