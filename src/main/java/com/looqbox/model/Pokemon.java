@@ -13,15 +13,18 @@ public class Pokemon {
     }
 
     private String name;
-    private String url;
+    private String highlight;
 
     public String getName() {
         return name;
     }
 
-    public String getUrl() {
-        return url;
-    }    
-    
+    public String getHighlight() {
+        return highlight;
+    }
+
+    public void setHighlight(String highlight) {
+        this.highlight = highlight;
+    }
 
 }

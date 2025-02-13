@@ -3,6 +3,7 @@ package com.looqbox.controller;
 import com.looqbox.enums.SortingCriteria;
 import com.looqbox.model.Pokemon;
 import com.looqbox.model.dto.PokemonDTO;
+import com.looqbox.model.dto.ResponseDTO;
 import com.looqbox.service.PokemonService;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +27,21 @@ public class PokemonController {
     public Mono<ResponseEntity<PokemonDTO>> getPokemons(
             @RequestParam(required = false, defaultValue = "") String query,
             @RequestParam(required = false, defaultValue = "ALPHABETICAL") SortingCriteria sort) {
-        
-        List<Pokemon> pokemonResults = !"".equals(query) ? service.getByNamePart(query) : service.getAllPokemons();
 
-        return Mono.just(ResponseEntity.ok(new PokemonDTO(pokemonResults)));
+        List<Pokemon> pokemonResults = !"".equals(query) ? service.getByNamePart(query, sort) : service.getAllPokemons(sort);
+
+        return Mono.just(ResponseEntity.ok(ResponseDTO.convertResponse(Boolean.FALSE, pokemonResults))); 
+    }
+
+    @GetMapping("highlight")
+    public Mono<ResponseEntity<PokemonDTO>> getPokemonHighlights(
+            @RequestParam(required = false, defaultValue = "") String query,
+            @RequestParam(required = false, defaultValue = "ALPHABETICAL") SortingCriteria sort) {
+        
+        List<Pokemon> pokemonResults = !"".equals(query) ?
+                service.getAllHighlight(service.getByNamePart(query, sort), query) : service.getAllPokemons(sort);
+
+        return Mono.just(ResponseEntity.ok(ResponseDTO.convertResponse(Boolean.TRUE, pokemonResults))); 
     }
 
 }
