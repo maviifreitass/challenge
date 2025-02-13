@@ -12,6 +12,11 @@ public class Pokemon {
     public Pokemon() {
     }
 
+    public Pokemon(String name, String highlight) {
+        this.name = name;
+        this.highlight = highlight;
+    }
+
     private String name;
     private String highlight;
 
