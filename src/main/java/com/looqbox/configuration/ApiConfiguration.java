@@ -12,8 +12,8 @@ public class ApiConfiguration {
   private String pokemonApiUrl;
 
   @Bean
-  public WebClient webClient(final WebClient.Builder builder) {
-    return builder.baseUrl(pokemonApiUrl != null ? pokemonApiUrl : "https://pokeapi.co/api/v2/")  
+  public WebClient webClient(final WebClient.Builder builder) {      
+    return builder.baseUrl(pokemonApiUrl != null ? pokemonApiUrl : "https://pokeapi.co/api/v2/pokemon?limit=11000")  
         .build();
   }
   
