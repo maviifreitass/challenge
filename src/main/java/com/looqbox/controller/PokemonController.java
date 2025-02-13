@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping(value = "/pokemons")
@@ -24,24 +23,24 @@ public class PokemonController {
     }
 
     @GetMapping
-    public Mono<ResponseEntity<PokemonDTO>> getPokemons(
+    public ResponseEntity<PokemonDTO> getPokemons(
             @RequestParam(required = false, defaultValue = "") String query,
             @RequestParam(required = false, defaultValue = "ALPHABETICAL") SortingCriteria sort) {
 
-        List<Pokemon> pokemonResults = !"".equals(query) ? service.getByNamePart(query, sort) : service.getAllPokemons(sort);
+        List<Pokemon> pokemonResults = query.isEmpty()
+                ? service.getAllPokemons(sort) : service.getByNamePart(query, sort);
 
-        return Mono.just(ResponseEntity.ok(ResponseDTO.convertResponse(Boolean.FALSE, pokemonResults))); 
+        return ResponseEntity.ok(ResponseDTO.convertResponse(false, pokemonResults));
     }
 
-    @GetMapping("highlight")
-    public Mono<ResponseEntity<PokemonDTO>> getPokemonHighlights(
+    @GetMapping("/highlight")
+    public ResponseEntity<PokemonDTO> getPokemonHighlights(
             @RequestParam(required = false, defaultValue = "") String query,
             @RequestParam(required = false, defaultValue = "ALPHABETICAL") SortingCriteria sort) {
-        
-        List<Pokemon> pokemonResults = !"".equals(query) ?
-                service.getAllHighlight(service.getByNamePart(query, sort), query) : service.getAllPokemons(sort);
 
-        return Mono.just(ResponseEntity.ok(ResponseDTO.convertResponse(Boolean.TRUE, pokemonResults))); 
+        List<Pokemon> pokemonResults = query.isEmpty()
+                ? service.getAllPokemons(sort) : service.getAllHighlight(service.getByNamePart(query, sort), query);
+
+        return ResponseEntity.ok(ResponseDTO.convertResponse(true, pokemonResults));
     }
-
 }
