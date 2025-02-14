@@ -2,12 +2,10 @@ package com.looqbox.tests;
 
 import com.looqbox.cache.PokemonCache;
 import com.looqbox.model.Pokemon;
-import com.looqbox.model.PokemonResponse;
 import com.looqbox.util.QuickSort;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
