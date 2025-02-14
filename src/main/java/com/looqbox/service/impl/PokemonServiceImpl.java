@@ -27,7 +27,7 @@ public class PokemonServiceImpl implements PokemonService {
     @Override
     public List<Pokemon> getByNamePart(String query, SortingCriteria sort) {
         List<Pokemon> filteredPokemons = cache.getCachedPokemonData().getResults().stream()
-                .filter(pokemon -> pokemon.getName().contains(query))
+                .filter(pokemon -> pokemon.getName().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
 
         return sortPokemons(filteredPokemons, sort);

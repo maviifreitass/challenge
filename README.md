@@ -20,6 +20,8 @@ Communication with the PokéAPI is done via simple HTTP calls, using a manual ca
 
 The microservice architecture is simple and straightforward, with the business logic separated into layers to facilitate management and scalability.
 
+![architecture](architecture.png)
+
 ## Technologies Used:
 
 - **Spring Boot (Java)**
@@ -101,6 +103,23 @@ The sequence of divisions follows a logarithmic growth, which justifies the dept
 ## Points to Improve
 <details>
 <summary>Bottlenecks</summary>
+
+In developing this challenge, we sought to ensure clean, maintainable and scalable code.
+
+However, some improvements can be implemented, as well as the identification of possible bottlenecks that the application may face:
+
+### Manual Cache Optimization
+
+- The current implementation of manual caching can be improved as demand and resource consumption of the API increases.
+- If the manual caching approach is maintained, the introduction of a Scheduler would be an interesting alternative, allowing periodic and automatic updating of the cache, ensuring that the stored data is always up to date without the need for manual intervention.
+
+### Adjustments to the ResponseDTO Structure
+
+- ResponseDTO was created to avoid duplication of classes by returning lists of similar objects.
+- As the application grows and new services follow this same pattern – only varying the list type (such as String and Pokemon) – the use of a generic DTO becomes a more scalable solution.
+- With this approach, the DTO could be reused in different scenarios, making the code more flexible and reducing the need to create multiple specific classes for each type of response.
+
+Despite this, the API follows design patterns, such as Singleton in the cache implementation and Strategy in the service structure, ensuring greater efficiency, flexibility and code maintenance.
 
 </details>
 
