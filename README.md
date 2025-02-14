@@ -10,7 +10,7 @@ The service was developed using Java with Spring Boot and Gradle, with the goal 
 - [Architecture](#architecture)
 - [Features](#features)
 - [Quick Sort Algorithm](#quick-sort-algorithm)
-- [Improvements](#improvements-points)
+- [Points to Improve](#points-to-improve)
 - [Execution Instructions](#execution-instructions)
 
 ## Architecture
