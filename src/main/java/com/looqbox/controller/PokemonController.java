@@ -39,7 +39,7 @@ public class PokemonController {
             @RequestParam(required = false, defaultValue = "ALPHABETICAL") SortingCriteria sort) {
 
         List<Pokemon> pokemonResults = query.isEmpty()
-                ? service.getAllPokemons(sort) : service.getAllHighlight(service.getByNamePart(query, sort), query);
+                ? service.getAllPokemons(sort) : service.getAllHighlight(service.getByNamePart(query, sort), query.toLowerCase());
 
         return ResponseEntity.ok(ResponseDTO.convertResponse(true, pokemonResults));
     }
